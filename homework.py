@@ -9,7 +9,7 @@ class Record:
         if date is None:
             self.date = dt.datetime.now().date()
         else:
-            self.date = dt.datetime.strptime(date,'%d.%m.%Y').date()
+            self.date = dt.datetime.strptime(date, '%d.%m.%Y').date()
         self.comment = comment
 
 
@@ -21,7 +21,6 @@ class Calculator:
 
     def add_record(self, record: Record) -> None:
         self.records.append(record)
-        pass
  
     def get_today_stats(self) -> int:
         now = dt.datetime.now()
@@ -40,7 +39,6 @@ class Calculator:
             if day_week_ago <= i.date <= today:
                 amount += i.amount
         return amount
-        pass
 
 
 class CaloriesCalculator(Calculator):
