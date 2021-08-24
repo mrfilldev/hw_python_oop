@@ -51,7 +51,7 @@ class CaloriesCalculator(Calculator):
             return "Хватит есть!"
 
 
-class CashCalculator(Calculator):    
+class CashCalculator(Calculator):
     USD_RATE: float = 60.00
     EURO_RATE: float = 70.00
 
@@ -60,17 +60,17 @@ class CashCalculator(Calculator):
         local_limit = self.limit
         if currency == "usd":
             currency = "USD"
-            local_limit = round(local_limit / self.USD_RATE, 2) 
+            local_limit = round(local_limit / self.USD_RATE, 2)
             day_result = round(self.get_today_stats() / self.USD_RATE, 2)
         elif currency == "eur":
             currency = "Euro"
-            local_limit = round(local_limit / self.EURO_RATE, 2) 
+            local_limit = round(local_limit / self.EURO_RATE, 2)
             day_result = round(self.get_today_stats() / self.EURO_RATE, 2)
         elif currency == "rub":
             currency = "руб"
             day_result = round(self.get_today_stats(), 2)
         if (local_limit - day_result) == 0:
-            return f"Денег нет, держись"
+            return "Денег нет, держись"
         elif local_limit > day_result:
             return f"На сегодня осталось \
                 {round(local_limit - day_result, 2)} {currency}"
