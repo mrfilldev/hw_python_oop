@@ -21,7 +21,7 @@ class Calculator:
 
     def add_record(self, record: Record) -> None:
         self.records.append(record)
- 
+
     def get_today_stats(self) -> int:
         now = dt.datetime.now()
         amount: int = 0
@@ -31,7 +31,6 @@ class Calculator:
         return amount
 
     def get_week_stats(self) -> int:
-        
         day_week_ago = dt.date.today() - dt.timedelta(days=7)
         today = dt.datetime.now().date()
         amount = 0
@@ -52,8 +51,7 @@ class CaloriesCalculator(Calculator):
             return "Хватит есть!"
 
 
-class CashCalculator(Calculator):
-    
+class CashCalculator(Calculator):    
     USD_RATE: float = 60.00
     EURO_RATE: float = 70.00
 
