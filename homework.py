@@ -3,14 +3,13 @@ import datetime as dt
 
 class Record:
 
-    def __init__(self, amount: int, comment: str, date: dt.date = None) -> None:
-
+    def __init__(self, amount: int, comment: str,
+                 date: dt.date = None) -> None:
         self.amount = amount
-        
         if date is None:
             self.date = dt.datetime.now().date()
         else:
-            self.date = dt.datetime.strptime(date, '%d.%m.%Y').date()
+            self.date = dt.datetime.strptime(date,'%d.%m.%Y').date()
         self.comment = comment
 
 
@@ -31,7 +30,6 @@ class Calculator:
             if i.date == now.date():
                 amount += i.amount
         return amount
-        
 
     def get_week_stats(self) -> int:
         
@@ -45,14 +43,13 @@ class Calculator:
         pass
 
 
-
 class CaloriesCalculator(Calculator):
-
 
     def get_calories_remained(self) -> str:
         result = self.limit - self.get_today_stats()
         if self.limit > self.get_today_stats():
-            return f"Сегодня можно съесть что-нибудь ещё, но с общей калорийностью не более {result} кКал"
+            return f"Сегодня можно съесть что-нибудь ещё,\
+но с общей калорийностью не более {result} кКал"
         else:
             return "Хватит есть!"
 
@@ -76,11 +73,11 @@ class CashCalculator(Calculator):
         elif currency == "rub":
             currency = "руб"
             day_result = round(self.get_today_stats(), 2)
-            
-            
         if (local_limit - day_result) == 0:
             return f"Денег нет, держись"
         elif local_limit > day_result:
-            return f"На сегодня осталось {round(local_limit - day_result, 2)} {currency}"
+            return f"На сегодня осталось \
+                {round(local_limit - day_result, 2)} {currency}"
         elif local_limit < day_result:
-            return f"Денег нет, держись: твой долг - {round(abs(local_limit-day_result), 2)} {currency}"
+            return f"Денег нет, держись: твой долг -\
+                {round(abs(local_limit-day_result), 2)} {currency}"
