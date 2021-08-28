@@ -12,12 +12,11 @@ class Record:
         self.amount = amount
         self.comment = comment
         self.date = self.set_dt(self, date)
-    
+
     def set_dt(self, date):
         if not date:
             return dt.datetime.now()
         return dt.datetime.strptime(date, '%d:%m:%Y')
-
 
 
 class Calculator:
