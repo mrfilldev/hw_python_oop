@@ -3,15 +3,15 @@ import datetime as dt
 
 class Record:
 
-    def __init__(self, amount: int, comment: str,
-                 date: dt.date = None) -> None:
+    def __init__(self, 
+                amount: int,
+                comment: str,
+                date: dt.date = dt.datetime.now()) -> None:
         self.amount = amount
-        if date is None:
-            self.date = dt.datetime.now().date()
-        else:
-            self.date = dt.datetime.strptime(date, '%d.%m.%Y').date()
         self.comment = comment
-
+        if isinstance(dt,str):
+            self.date = dt.datetime.strptime(date, '%d.%m.%Y').date()
+        
 
 class Calculator:
 
