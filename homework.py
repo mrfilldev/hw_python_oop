@@ -9,7 +9,7 @@ class Record:
         if date is None:
             self.date = dt.datetime.now().date()
         else:
-            self.date = dt.datetime.strptime(date, '%d.%m.%Y').date()
+            self.date = dt.datetime.strptime(date, '%Y.%M.%D').date()
         self.comment = comment
 
 
