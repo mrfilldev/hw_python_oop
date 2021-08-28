@@ -65,9 +65,7 @@ class CashCalculator(Calculator):
         elif currency == "eur":
             currency = "Euro"
             local_limit = round(local_limit / self.EURO_RATE, 2)
-            print(local_limit)
             day_result = round(self.get_today_stats() / self.EURO_RATE, 2)
-            print(day_result)
         elif currency == "rub":
             currency = "руб"
             day_result = round(self.get_today_stats(), 2)
