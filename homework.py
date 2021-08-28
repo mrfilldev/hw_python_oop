@@ -12,7 +12,7 @@ class Record:
         self.amount = amount
         self.comment = comment
         if isinstance(dt, str):
-            self.date = dt.datetime.strptime(date, '%d.%m.%Y').date()
+            self.date = dt.datetime.strptime(date, '%d.%m.%Y')
 
 
 class Calculator:
