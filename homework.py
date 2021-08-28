@@ -7,12 +7,17 @@ class Record:
         self,
         amount: int,
         comment: str,
-        date: dt.date = dt.datetime.now()
+        date: dt.date = None
     ) -> None:
         self.amount = amount
         self.comment = comment
-        if isinstance(dt, str):
-            self.date = dt.datetime.strptime(date, '%d.%m.%Y')
+        self.date = self.set_dt(self, date)
+    
+    def set_dt(self, date):
+        if not date:
+            return dt.datetime.now()
+        return dt.datetime.strptime(date, '%d:%m:%Y')
+
 
 
 class Calculator:
