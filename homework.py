@@ -75,5 +75,5 @@ class CashCalculator(Calculator):
             return f"На сегодня осталось \
 {round(local_limit - day_result, 2)} {currency}"
         elif local_limit < day_result:
-            return f"Денег нет, держись: твой долг -\
+            return f"Денег нет, держись: твой долг - \
 {round(day_result - local_limit, 2)} {currency}"
