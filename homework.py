@@ -3,8 +3,12 @@ import datetime as dt
 
 class Record:
 
-    def __init__(self, amount: int, comment: str,
-                date: dt.date = dt.datetime.now()) -> None:
+    def __init__(
+        self,
+        amount: int,
+        comment: str,
+        date: dt.date = dt.datetime.now()
+    ) -> None:
         self.amount = amount
         self.comment = comment
         if isinstance(dt, str):
