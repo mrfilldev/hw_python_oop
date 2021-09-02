@@ -5,7 +5,12 @@ from typing import Union
 
 class Record:
 
-    def __init__(self, amount: int, comment: str, date: Union[str, NoneType] = None) -> None:
+    def __init__(
+    self,
+    amount: int,
+    comment: str,
+    date: Union[str, NoneType] = None
+    ) -> None:
         self.amount = amount
         if date is None:
             self.date = dt.datetime.now().date()
