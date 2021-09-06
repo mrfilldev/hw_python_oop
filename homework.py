@@ -1,4 +1,3 @@
-from _typeshed import NoneType
 import datetime as dt
 from typing import Union
 
@@ -9,7 +8,7 @@ class Record:
         self,
         amount: int,
         comment: str,
-        date: Union[str, NoneType] = None
+        date: Union[str, None] = None
     ) -> None:
         self.amount = amount
         if date is None:
@@ -78,8 +77,10 @@ class CashCalculator(Calculator):
         if (local_limit - day_result) == 0:
             return "Денег нет, держись"
         elif local_limit > day_result:
-            return f"На сегодня осталось \
-{round(local_limit - day_result, 2)} {currency}"
+            return (f"На сегодня осталось "
+                    f"{round(local_limit - day_result, 2)} {currency}"
+            )
         elif local_limit < day_result:
-            return f"Денег нет, держись: твой долг - \
-{round(day_result - local_limit, 2)} {currency}"
+            return (f"Денег нет, держись: твой долг - "
+                    f"{round(day_result - local_limit, 2)} {currency}"
+            )
