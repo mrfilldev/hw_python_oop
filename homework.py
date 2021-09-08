@@ -24,6 +24,10 @@ class Calculator:
         self.records = []
         self.limit = limit
 
+    def result_limit_get_today_status(self):
+        result = self.limit - self.get_today_stats()
+        return result
+
     def add_record(self, record: Record) -> None:
         self.records.append(record)
 
@@ -48,10 +52,10 @@ class Calculator:
 class CaloriesCalculator(Calculator):
 
     def get_calories_remained(self) -> str:
-        result = self.limit - self.get_today_stats()
         if self.limit > self.get_today_stats():
             return (f"Сегодня можно съесть что-нибудь ещё, "
-                    f"но с общей калорийностью не более {result} кКал")
+                    f"но с общей калорийностью не более "
+                    f"{self.result_limit_get_today_status()} кКал")
         else:
             return "Хватит есть!"
 
@@ -87,19 +91,20 @@ class CashCalculator(Calculator):
         return result
 
     def get_today_cash_remained(self, currency) -> str:
+        if (self.limit - round(self.get_today_stats(), 2)) == 0:
+            return "Денег нет, держись"
         if currency == "usd":
             result = self.currency_is_usd()
         if currency == "eur":
             result = self.currency_is_euro()
         if currency == "rub":
             result = self.currency_is_rub()
-        if (result[1] - result[2]) == 0:
-            return "Денег нет, держись"
-        elif result[1] > result[2]:
+
+        if result[1] > result[2]:
             remains = round(result[1] - result[2], 2)
             return (f"На сегодня осталось "
                     f"{remains} {result[0]}")
-        elif result[1] < result[2]:
+        if result[1] < result[2]:
             debt = round(result[2] - result[1], 2)
             return (f"Денег нет, держись: твой долг - "
                     f"{debt} {result[0]}")
