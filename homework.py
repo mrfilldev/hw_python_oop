@@ -52,10 +52,11 @@ class Calculator:
 class CaloriesCalculator(Calculator):
 
     def get_calories_remained(self) -> str:
+        result = self.result_limit_get_today_status()
         if self.limit > self.get_today_stats():
             return (f"Сегодня можно съесть что-нибудь ещё, "
                     f"но с общей калорийностью не более "
-                    f"{self.result_limit_get_today_status()} кКал")
+                    f"{result} кКал")
         else:
             return "Хватит есть!"
 
@@ -63,42 +64,32 @@ class CaloriesCalculator(Calculator):
 class CashCalculator(Calculator):
     USD_RATE: float = 60.00
     EURO_RATE: float = 70.00
+    RUB_RATE: float = 1.00
+    money_dict = {
+        "usd": "USD",
+        "eur": "Euro",
+        "rub": "руб",
+    }
 
-    def currency_is_usd(self):
+    def currency_is(self, cash_rate, currency):
         day_result = 0
         local_limit = self.limit
-        currency = "USD"
-        local_limit = round(local_limit / self.USD_RATE, 2)
-        day_result = round(self.get_today_stats() / self.USD_RATE, 2)
-        result = (currency, local_limit, day_result)
-        return result
-
-    def currency_is_euro(self):
-        day_result = 0
-        local_limit = self.limit
-        currency = "Euro"
-        local_limit = round(local_limit / self.EURO_RATE, 2)
-        day_result = round(self.get_today_stats() / self.EURO_RATE, 2)
-        result = (currency, local_limit, day_result)
-        return result
-
-    def currency_is_rub(self):
-        day_result = 0
-        local_limit = self.limit
-        currency = "руб"
-        day_result = round(self.get_today_stats(), 2)
+        currency = self.money_dict[currency]
+        local_limit = round(local_limit / cash_rate, 2)
+        day_result = round(self.get_today_stats() / cash_rate, 2)
         result = (currency, local_limit, day_result)
         return result
 
     def get_today_cash_remained(self, currency) -> str:
-        if (self.limit - round(self.get_today_stats(), 2)) == 0:
+        check_zero = round(self.result_limit_get_today_status(), 2)
+        if check_zero == 0:
             return "Денег нет, держись"
         if currency == "usd":
-            result = self.currency_is_usd()
+            result = self.currency_is(self.USD_RATE, currency)
         if currency == "eur":
-            result = self.currency_is_euro()
+            result = self.currency_is(self.EURO_RATE, currency)
         if currency == "rub":
-            result = self.currency_is_rub()
+            result = self.currency_is(self.RUB_RATE, currency)
 
         if result[1] > result[2]:
             remains = round(result[1] - result[2], 2)
