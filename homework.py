@@ -53,7 +53,7 @@ class CaloriesCalculator(Calculator):
 
     def get_calories_remained(self) -> str:
         result = self.result_limit_get_today_status()
-        if self.limit > self.get_today_stats():
+        if result > 0:
             return (f"Сегодня можно съесть что-нибудь ещё, "
                     f"но с общей калорийностью не более "
                     f"{result} кКал")
@@ -66,17 +66,15 @@ class CashCalculator(Calculator):
     EURO_RATE: float = 70.00
     RUB_RATE: float = 1.00
     money_dict = {
-        "usd": "USD",
-        "eur": "Euro",
-        "rub": "руб",
+        "usd": ["USD", USD_RATE],
+        "eur": ["Euro", EURO_RATE],
+        "rub": ["руб", RUB_RATE],
     }
 
-    def currency_is(self, cash_rate, currency):
-        day_result = 0
-        local_limit = self.limit
-        currency = self.money_dict[currency]
-        local_limit = round(local_limit / cash_rate, 2)
-        day_result = round(self.get_today_stats() / cash_rate, 2)
+    def currency_is(self, currency):
+        local_limit = round(self.limit / self.money_dict[currency][1], 2)
+        day_result = round(self.get_today_stats() / self.money_dict[currency][1], 2)
+        currency = self.money_dict[currency][0]
         result = (currency, local_limit, day_result)
         return result
 
@@ -85,11 +83,11 @@ class CashCalculator(Calculator):
         if check_zero == 0:
             return "Денег нет, держись"
         if currency == "usd":
-            result = self.currency_is(self.USD_RATE, currency)
+            result = self.currency_is(currency)
         if currency == "eur":
-            result = self.currency_is(self.EURO_RATE, currency)
+            result = self.currency_is(currency)
         if currency == "rub":
-            result = self.currency_is(self.RUB_RATE, currency)
+            result = self.currency_is(currency)
 
         if result[1] > result[2]:
             remains = round(result[1] - result[2], 2)
