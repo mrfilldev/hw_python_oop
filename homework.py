@@ -73,7 +73,9 @@ class CashCalculator(Calculator):
 
     def currency_is(self, currency):
         local_limit = round(self.limit / self.money_dict[currency][1], 2)
-        day_result = round(self.get_today_stats() / self.money_dict[currency][1], 2)
+        day_result = round(
+            self.get_today_stats() / self.money_dict[currency][1],
+            2)
         currency = self.money_dict[currency][0]
         result = (currency, local_limit, day_result)
         return result
